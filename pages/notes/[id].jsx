@@ -1,5 +1,13 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
-const Page = () => <div>Note page</div>;
+const Page = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  console.log('router.query = ', router.query);
+
+  return <h1>{`Note ${id}`}</h1>;
+};
 
 export default Page;
