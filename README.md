@@ -7,7 +7,6 @@
 
 <br />
 <img src='https://static.frontendmasters.com/assets/courses/2020-09-15-next-js/thumb.jpg' id='thumbnail' width='25%' height='25%' />
-<br />
 
 ## Sections in this Readme 📓
 
@@ -72,21 +71,95 @@
   - Next.js provides a `Link` component to route between pages. The important thing to remember is that the `Link` component is only used to navigate for **client-side routing** (no requests to the server). It has an `href` prop (similar to HTML).
   - It is highly recomended to wrap the link name inside of the `Link` component with an anchor tag `<a>` when navigating to a static path. Update your linter to not error out because your `<a>` tag does not have an `href`. Example of how to set up the link:
 
-  ```
-    <Link href='/notes'>
-      <a>Notes</a>
-    </Link>
+  ```javascript
+  <Link href='/notes'>
+    <a>Notes</a>
+  </Link>
   ```
 
   - Why do we need the `as` keyword?
     - Next.js needs to know the value of the param. That's why the param needs to be mapped in some way.
       Example:
-    ```
+    ```javascript
     {note.id} href="/notes/[id]" as={`/notes/${note.id}`}
     ```
 
 - Programmatic Routing
+
   - Just like the `Link` component, use the router for client-side routing. To navigate to a page, use the `push` method, which works like `href` on the `Link` component.
+
+- Styling
+
+  - You might have to extend Next.js to support your styling approach.
+  - There are global and component level sryling capabilites. For global CSS, the entry point for the app needs to be imported. For that, create a `pages/_app.jsx` file and add this:
+
+  ```javascript
+  export default function App({ Component, pageProps }) {
+    return <Component {...pageProps} />;
+  }
+  ```
+
+  - Modules can be used **anywhere** inside the app.
+
+- Theme UI
+
+  - Is a library that allows you to create theme objects and use them in your components. It also handles scoping and injecting the CSS into your app.
+  - Create an object representing a theme and use that theme for all your components.
+
+- Baseweb
+
+  - [Baseweb Link](https://baseweb.design/)
+  - Baseweb is a very similar React UI framework to Theme-UI
+
+- Customizing Next.js
+
+  - To change Netx.js's build system behavior, extend Next.js's features, or add ENV variables, it can be easily done in the `next-config.js` file.
+  - Either export an object:
+
+  ```javascript
+  module.exports = {
+    webpack: {
+      // webpack config properties
+    },
+    env: {
+      MY_ENV_VAR: process.env.SECRET,
+    },
+  };
+  ```
+
+  - This is where SVG loaders for webpack can be added
+  - After you create `next-config.js` _(note that the name is very important)_ in the root of the project, Next.js will throw the following message:
+
+  ```
+  > Found a change in next.config.js. Restart the server to see the changes in effect.
+  ```
+
+  - Whatever is put inside of `next-config.js` will **merge** with what Next.js already has as per configuration. It's not going to blow-up everything.
+
+- Plugins
+
+  - Also known as **extended configurations**
+  - They are defined inside of `next.config.js`:
+
+  ```javascript
+  const withOffline = require('next-offline');
+  const config = {
+    // your next config
+  };
+
+  module.exports = withOffline(config);
+  ```
+
+  - `dotEnvLoad` _(see in the `next.config.js` file)_ will look for an `.env` file, grab every environment variable within, and inject it into the environment.
+  - Find all the official next plugins here: [next plugins](https://github.com/vercel/next-plugins)
+
+- Typescript
+  - Create in the root of the project a `tsconfig.json` file.
+  - Install TypeScript:
+  ```javascript
+  npm install --save-dev typescript @types/react
+  ```
+  - `tsconfig.json` file will get populated with TypeScript default values
 
 ## Documentation 🕶️
 
