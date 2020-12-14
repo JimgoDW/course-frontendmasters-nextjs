@@ -281,6 +281,15 @@
     - It depends on the client-side data
     - Something else
 
+- Deployment
+
+  - By default, a Next.js app has to be deployed to an environment that supports Node.js.
+  - As a tip, you should deploy to Vercel. Vercel literally made Next,js.
+  - If you export your app to be pure static (no need for Node.js), you can deploy to static hosting services. You can use: `next export`. There are quite some **gotchas**, though.
+  - install the CLI `npm install -g vercel` and run `vercel`. That's it. If your project is already on Github, you can deploy that way from Vercel as well. Create an account and connect your Github account.
+
+- ## Deploying Next.js
+
 ## <a id='documentation'></a>Documentation 🕶️
 
 All related documentation for Next.js can be found here: [Next.js Documentation][nextjsdocumentation]
